@@ -4,7 +4,7 @@ const path = require('path');
 // require('dotenv').config();
 
 // Constants
-const PORT =  4300;
+const PORT =  5000;
 
 // App
 const app = express();
