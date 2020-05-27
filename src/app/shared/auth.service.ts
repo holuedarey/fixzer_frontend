@@ -16,7 +16,9 @@ export interface ISignInCredentials {
 export interface ICreateCredentials {
   email: string;
   password: string;
-  displayName: string;
+  firstName: string;
+  lastName:string;
+  role:string;
 }
 
 export interface IPasswordReset {
@@ -57,7 +59,8 @@ export class AuthService {
   }
 
   register(credentials: ICreateCredentials) {
-    return this.http.post(`${environment.apiUrl}/auth/register`, credentials)
+    // console.log('details incoming',credentials)
+    return this.http.post(`${environment.apiUrl}/auth/signup`, credentials)
     .pipe(
       map((response: any) => {
         return response;
