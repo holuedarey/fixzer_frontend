@@ -16,8 +16,8 @@ export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
-const config: SocketIoConfig = { url: 'http://localhost:3011', options: { transports: ['polling'] } };
-// const config: SocketIoConfig = { url: 'https://pacific-beyond-28416.herokuapp.com', options: { transports: ['polling'] } };
+// const config: SocketIoConfig = { url: 'http://localhost:3011', options: { transports: ['polling'] } };
+const config: SocketIoConfig = { url: 'https://pacific-beyond-28416.herokuapp.com', options: { transports: ['polling'] } };
 
 @NgModule({
   imports: [
