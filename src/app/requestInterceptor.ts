@@ -14,7 +14,7 @@ export class httpInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         let token = localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
-        console.log('my token : ', token || 'nothing')
+        // console.log('my token : ', token || 'nothing')
         if (!request.headers.has('Content-Type')) {
             request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
         }

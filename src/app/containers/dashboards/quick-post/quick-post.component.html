@@ -21,39 +21,68 @@
         </div>
     </div>
     <div class="card-body">
-        <h5 class="card-title">{{ 'dashboards.quick-post' | translate}}</h5>
-        <div class="dashboard-quick-post">
-            <form>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">{{ 'dashboards.title' | translate }}</label>
-                    <div class="col-sm-9">
-                        <input type="email" class="form-control" placeholder="">
+        <h5 class="card-title">{{ 'Create Booking' | translate}}</h5>
+        <form #bookingForm="ngForm" novalidate (ngSubmit)="onSubmit()">
+
+            <label class="form-group has-float-label">
+                <input class="form-control" type="text" required placeholder=""  ngModel #title="ngModel" name="title"
+                    [(ngModel)]="passwordModel" />
+                <span>{{ 'Title' | translate }}</span>
+                <div *ngIf="!title.valid && bookingForm.submitted" class="invalid-tooltip">Title is required!</div>
+            </label>
+
+            <label class="form-group has-float-label">
+                <input class="form-control" type="text" required placeholder=""  ngModel #address="ngModel" name="address" />
+                <span>{{ 'Address' | translate }}</span>
+                <div *ngIf="!address.valid && bookingForm.submitted" class="invalid-tooltip">Address is required!</div>
+            </label>
+
+            
+            <label class="form-group has-float-label">
+                <input class="form-control" type="text" required placeholder=""  ngModel #description="ngModel" name="description"  />
+                <span>{{ 'Description' | translate }}</span>
+                <div *ngIf="!description.valid && bookingForm.submitted" class="invalid-tooltip">Description is required!</div>
+            </label>
+
+           
+           
+            <label class="form-group has-float-label">
+                <ng-select appearance="outline" [searchable]="true" name="service" ngModel #service="ngModel">
+                    <ng-option *ngFor="let item of categories" [value]="item.value">{{item.label}}
+                    </ng-option>
+                </ng-select>
+                <span>{{ 'Service' | translate }}</span>
+                <div *ngIf="!service.valid && bookingForm.submitted" class="invalid-tooltip">Service is required!</div>
+            </label>
+
+            <label class="form-group has-float-label">
+                <ng-select appearance="outline"  [searchable]="true" name="category" ngModel #category="ngModel">
+                    <ng-option *ngFor="let item of categories" [value]="item.value">{{item.label}}
+                    </ng-option>
+                </ng-select>
+                <span>{{ 'Category' | translate }}</span>
+                <div *ngIf="!category.valid && bookingForm.submitted" class="invalid-tooltip">Category is required!</div>
+            </label>
+           
+            <div class="row" style="padding-top: 10px;">
+                <label class="form-group has-float-label col-6">
+                    <!-- <input class="form-control" type="text" placeholder="" required ngModel #password="ngModel" name="title" [(ngModel)]="passwordModel" /> -->
+                    <input type="text" placeholder="Select Date" class="form-control" name="service_date" bsDatepicker [container]="'html'" 
+                         ngModel #service_date="ngModel" [(ngModel)]="bsValue">
+                    <span>{{ 'Service Date' | translate }}</span>
+                    <div *ngIf="!service_date.valid && bookingForm.submitted" class="invalid-tooltip">Date is required!
                     </div>
+                </label>
+
+                <div class="col-12 col-lg-6 mb-">
+                    <!-- <label>{{ 'form-components.basic' | translate }}</label> -->
+                    <timepicker class="timepicker"  ngModel #service_time="ngModel" name="service_time" [(ngModel)]="basicTime"
+                        style="position: relative; top: -15px;"></timepicker>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">{{ 'dashboards.content' | translate }}</label>
-                    <div class="col-sm-9">
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label">{{ 'dashboards.category' | translate }}</label>
-                    <div class="col-sm-9">
-                        <label class="w-100">
-                            <ng-select appearance="outline" [searchable]="false">
-                                <ng-option *ngFor="let item of categories" [value]="item.value">{{item.label}}
-                                </ng-option>
-                            </ng-select>
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group row mb-0">
-                    <div class="col-sm-12">
-                        <button type="submit"
-                            class="btn btn-primary float-right">{{ 'dashboards.save-and-publish' | translate}}</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+
+                <button class="btn btn-primary" [disabled]="buttonDisabled"  type="submit">{{ 'Create Booking' | translate }}</button>
+            </div>
+
+        </form>
     </div>
 </div>

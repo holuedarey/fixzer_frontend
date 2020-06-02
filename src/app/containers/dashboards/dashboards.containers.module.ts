@@ -29,10 +29,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ComponentsCardsModule } from 'src/app/components/cards/components.cards.module';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SortablejsModule } from 'ngx-sortablejs';
-import { RatingModule, ProgressbarModule, ModalModule, BsDropdownModule } from 'ngx-bootstrap';
-import { FormsModule  } from '@angular/forms';
+import { RatingModule, ProgressbarModule, ModalModule, BsDropdownModule, TimepickerModule } from 'ngx-bootstrap';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 @Injectable()
 export class CustomDateFormatter extends CalendarNativeDateFormatter {
   public monthViewColumnHeader({date, locale}: DateFormatterParams): string {
@@ -78,10 +79,14 @@ export class CustomDateFormatter extends CalendarNativeDateFormatter {
         SortablejsModule,
         RatingModule,
         FormsModule,
+        ReactiveFormsModule,
         NgSelectModule,
         ProgressbarModule.forRoot(),
         ModalModule.forRoot(),
-        BsDropdownModule.forRoot()
+        BsDropdownModule.forRoot(),
+        BsDatepickerModule.forRoot(),
+        TimepickerModule.forRoot(),
+        SimpleNotificationsModule.forRoot(),
     ],
     providers: [
       {provide: CalendarDateFormatter, useClass: CustomDateFormatter}

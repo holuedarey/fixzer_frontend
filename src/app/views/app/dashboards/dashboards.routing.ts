@@ -12,7 +12,7 @@ const routes: Routes = [
         path: '', component: DashboardsComponent,
         children: [
             { path: '', redirectTo: 'default', pathMatch: 'full' },
-            { path: 'home', component: DefaultComponent,  canActivate: [AuthGuardService] },
+            { path: 'booking', component: ContentComponent,  canActivate: [AuthGuardService] },
             { path: 'default', component: DefaultComponent,  canActivate: [AuthGuardService] },
             { path: 'content', component: ContentComponent, canActivate: [AuthGuardService] },
             { path: 'analytics', component: AnalyticsComponent, canActivate: [AuthGuardService] },

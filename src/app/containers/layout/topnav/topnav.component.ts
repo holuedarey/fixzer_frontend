@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/shared/auth.service';
 import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Constants } from 'src/app/constant';
+import { SocketService } from 'src/app/shared/socket.service';
 
 @Component({
   selector: 'app-topnav',
@@ -15,20 +16,32 @@ import { Constants } from 'src/app/constant';
 export class TopnavComponent implements OnInit, OnDestroy {
   sidebar: ISidebar;
   subscription: Subscription;
-  displayName = 'Sarah Cortney';
+  displayName = '';
   languages: Language[];
   currentLanguage: string;
   isSingleLang;
   isFullScreen = false;
   isDarkModeActive = false;
   searchKey = '';
+  data:any[] = [];
+  count:any = 0;
 
-  constructor(private sidebarService: SidebarService, private authService: AuthService, private router: Router, private langService: LangService,  public jwtHelper: JwtHelperService) {
+  constructor(private socket: SocketService, private sidebarService: SidebarService, private authService: AuthService, private router: Router, private langService: LangService, public jwtHelper: JwtHelperService) {
     this.languages = this.langService.supportedLanguages;
     this.currentLanguage = this.langService.languageShorthand;
     this.isSingleLang = this.langService.isSingleLang;
     this.isDarkModeActive = this.getColor().indexOf('dark') > -1 ? true : false;
-    
+
+  }
+
+
+  async getSocketData() {
+    this.socket.connect();
+    await this.socket.getMessage().subscribe((Socketdata: any) => {
+      this.data.unshift(Socketdata);
+      this.count = Socketdata.length;
+      console.log('notification : ', Socketdata, ' count : ', this.count)
+    });
   }
 
   onDarkModeChange(event) {
@@ -65,8 +78,10 @@ export class TopnavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getSocketData();
+    
     if (this.authService.user) {
-      this.displayName = localStorage.getItem('User') ? JSON.parse(localStorage.getItem('User')).firstname :'';
+      this.displayName = localStorage.getItem('User') ? JSON.parse(localStorage.getItem('User')).firstname : '';
     } else {
       this.router.navigate(['/'])
     }

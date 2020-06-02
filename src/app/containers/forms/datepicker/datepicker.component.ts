@@ -30,6 +30,8 @@ export class DatepickerComponent implements OnInit {
     this.form = new FormGroup({
       basicDate: new FormControl(new Date()),
     });
+
+    // console.log(this.form.controls.basicDate)
   }
 
 }

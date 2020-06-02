@@ -11,9 +11,13 @@ import { environment } from '../environments/environment';
 import { LayoutContainersModule } from './containers/layout/layout.containers.module';
 import { JwtModule } from "@auth0/angular-jwt";
 import { HttpInterceptorProvider } from './requestInterceptor';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
+
+const config: SocketIoConfig = { url: 'http://localhost:3011', options: { transports: ['polling'] } };
+// const config: SocketIoConfig = { url: 'https://pacific-beyond-28416.herokuapp.com', options: { transports: ['polling'] } };
 
 @NgModule({
   imports: [
@@ -24,6 +28,7 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     TranslateModule.forRoot(),
     HttpClientModule,
+    SocketIoModule.forRoot(config),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

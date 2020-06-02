@@ -1,6 +1,6 @@
 {
   "general": {
-    "copyright": "Vien Angular © 2020 All Rights Reserved."
+    "copyright": "Fixzer © 2020 All Rights Reserved."
   },
   "user": {
     "login-title": "Login",
@@ -19,6 +19,7 @@
     "code": "Reset Code"
   },
   "menu": {
+    "booking": "Booking",
     "app": "Home",
     "dashboards": "Dashboards",
     "default": "Default",
@@ -122,7 +123,7 @@
     "sales": "Sales",
     "orders": "Orders",
     "refunds": "Refunds",
-    "recent-orders": "Recent Orders",
+    "recent-orders": "Recent Booking",
     "product-categories": "Product Categories",
     "cakes": "Cakes",
     "tickets": "Tickets",
