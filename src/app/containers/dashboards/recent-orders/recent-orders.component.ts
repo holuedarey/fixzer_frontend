@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import productItems from 'src/app/data/products';
-import { IProduct } from 'src/app/data/api.service';
 import { BookingService } from 'src/app/shared/booking.service';
-import data from 'src/app/data/products';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-recent-orders',
@@ -10,15 +9,33 @@ import data from 'src/app/data/products';
 })
 export class RecentOrdersComponent implements OnInit {
 
-  constructor(private booking:BookingService) { }
+  constructor(private booking: BookingService, private router:Router) { }
 
   // data: IProduct[] = productItems.slice(0, 6);
-  data:any[] = [];
+  data: any[] = [];
   ngOnInit() {
-    this.getBookings();
+    // this.getBookings();
+    this.displayBooking();
   }
 
-  getBookings(){
+  displayBooking() {
+    //get user type admin or ordinary  user
+    let user = localStorage.getItem('User');
+    user = JSON.parse(user).position;
+    if(user == 'customer'){
+      this.getBookingUser();
+    }else if(user == 'freelancer'){
+      //get assign user for the profession
+    }
+    else if(user == 'super_admin'){
+      this.getBookings();
+    }
+  }
+  goToDetails(details){
+    this.router.navigate(['/app/pages/product/details'], {state:details})
+    console.log('details : ', details)
+  }
+  getBookings() {
     this.booking.getBookings().subscribe((bookings) => {
       // console.log(bookings.data)
       this.data = bookings.data
@@ -27,6 +44,13 @@ export class RecentOrdersComponent implements OnInit {
     });
   }
 
-  
+  getBookingUser() {
+    this.booking.getBookingUser().subscribe((bookings) => {
+      // console.log(bookings.data)
+      this.data = bookings.data
+    }, (error) => {
+      console.log(error.message)
+    });
+  }
 
 }

@@ -38,6 +38,15 @@ export class BookingService {
   }
 
   getBookings(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/booking`)
+    .pipe(
+      map((response: any) => {     
+        return response;
+      })
+    );
+  }
+
+  getBookingUser(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/booking/view/user`)
     .pipe(
       map((response: any) => {     
